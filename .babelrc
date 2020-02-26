@@ -20,7 +20,8 @@
         "alias": {
           "@app": "./server/app",
           "@utilities": "./server/utilities",
-          "@middlewares": "./server/middlewares"
+          "@middlewares": "./server/middlewares",
+          "@models": "./db/models"
         }
       }
     ]
