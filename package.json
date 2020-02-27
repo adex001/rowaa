@@ -12,7 +12,7 @@
     "seq": "node_modules/.bin/sequelize ",
     "seed": "node_modules/.bin/sequelize db:seed:all",
     "undo:seeder": "node_modules/.bin/sequelize db:seed:undo:all && npm run seed",
-    "start": "node ./dist/server/app.js",
+    "start": "node ./dist/app.js",
     "start:dev": "cross-env NODE_ENV=development && nodemon server/app.js --exec babel-node",
     "test": "cross-env NODE_ENV=test mocha --require @babel/register --require @babel/polyfill --timeout 10000 ./server/**/*.test.js --exit"
   },
@@ -22,12 +22,12 @@
   "author": "Olatunbosun Adeoye",
   "license": "ISC",
   "dependencies": {
-    "@babel/preset-env": "^7.7.7",
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
     "@babel/node": "^7.8.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
     "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.7",
     "@babel/runtime": "^7.7.7",
     "@hapi/joi": "^17.1.0",
     "@sendgrid/mail": "^6.5.3",
@@ -42,6 +42,7 @@
     "pg": "^7.18.2",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.5",
+    "sequelize-cli": "^5.5.1",
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
