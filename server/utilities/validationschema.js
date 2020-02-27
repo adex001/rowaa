@@ -29,7 +29,7 @@ export const bookAppointmentSchema = Joi.object({
   service: Joi.string(),
   size: Joi.string(),
   noOfAttachments: Joi.string(),
-  hairDoHours: Joi.number().integer().min(1).max(30)
+  hairDoHours: Joi.number().integer().min(1).max(30).required()
 });
 
 // const {firstname, lastname, email, phone, occupation, bio } = req.body;
