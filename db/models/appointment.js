@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     service: DataTypes.STRING,
     size: DataTypes.INTEGER,
     noOfAttachments: DataTypes.INTEGER,
-    hairdoHours: DataTypes.INTEGER
+    hairDoHours: DataTypes.INTEGER
   }, {});
   Appointment.associate = function(models) {
     // associations can be defined here

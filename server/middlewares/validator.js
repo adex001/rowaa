@@ -1,23 +1,27 @@
 import Response from '@utilities/response';
 
 class Validator {
-  static textValidator(fields) {
-    for (const input of fields) {
-      if(input === 'email'){
 
-      }
-    }
-    return true;
-  }
-  static validateVolunteer(req, res, next) {
-    const {firstname, lastname, email, phone, occupation, bio } = req.body;
+  static async validator (schema, req, res, next) {
     try {
-      Validator.textValidator(Object.keys(req.body));
-      next();
-    } catch (err) {
-      Response.badRequest(res);
+      const filtered = await schema.validateAsync({
+        ...req.params,
+        ...req.body,
+        ...req.query,
+      });
+      req.filtered = filtered;
+      return next();
+    } catch (error) {
+      Response.error(res, 422, error.message);
+    }
+  };
+
+  static validate (schema) {
+    return async (...args) => {
+      return await Validator.validator(schema, ...args);
     }
   }
+
 }
 
 export default Validator;

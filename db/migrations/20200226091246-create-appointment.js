@@ -37,7 +37,7 @@ module.exports = {
       noOfAttachments: {
         type: Sequelize.INTEGER
       },
-      hairdoHours: {
+      hairDoHours: {
         type: Sequelize.INTEGER,
         allowNull: false
       },

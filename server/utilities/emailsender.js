@@ -13,11 +13,11 @@ const mailGenerator = new Mailgen({
   theme: 'default',
   product: {
     name: projectName,
-    logo
+    link: 'www.rowaa.com'
   }
 });
 
-export const sendMail = ({ to, subject, message }) => {
+export const sendMail = async ({ to, subject, message }) => {
   const mailOptions = {
     from: `${projectName} <${projectEmail}>`,
     to,
@@ -25,30 +25,41 @@ export const sendMail = ({ to, subject, message }) => {
     html: message
   };
 
-  sgMail.send(mailOptions);
+  await sgMail.send(mailOptions);
 };
 
-export const sendNotification = (email, name, appointment) => {
+export const sendVolunteerNotification = async (email, name, appointment) => {
   const emailBody = {
     body: {
       name,
       title: `<h1 style="text-align: center; color: #000000"> ${projectName} </h1>`,
       intro: `Hi <b>${name.toUpperCase()}</b>, This is to remind you that your appointment is scheduled on ${appointment}.`,
-      // action: {
-      //   instructions: 'Click on the button below to verify your mail and start enjoying full access.',
-      //   button: {
-      //     color: '#335BCF',
-      //     text: 'Verify Your Account',
-      //     link: `${url}/auth/activate_user?email=${email}&token=${token}`
-      //   }
-      // },
       outro: 'Have a nice day'
     }
   };
   // Generate an HTML email with the provided contents
   const message = mailGenerator.generate(emailBody);
 
-  return sendMail({
+  return await sendMail({
+    to: email,
+    subject: `${projectName}: Appointment`,
+    message
+  });
+};
+
+export const sendBookingAppointmentNotification = async (email, name, appointment) => {
+  const emailBody = {
+    body: {
+      name,
+      title: `<h1 style="text-align: center; color: #000000"> ${projectName} </h1>`,
+      intro: `Hi <b>${name.toUpperCase()}</b>, This is to remind you that your appointment is scheduled on ${appointment}.`,
+      outro: 'Have a nice day'
+    }
+  };
+  // Generate an HTML email with the provided contents
+  const message = mailGenerator.generate(emailBody);
+
+  return await sendMail({
     to: email,
     subject: `${projectName}: Appointment`,
     message
