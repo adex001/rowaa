@@ -1,8 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import cron from 'node-cron';
 import router from './routes';
 import './config';
+import Reminder from './utilities/reminder';
 
 const PORT = process.env.PORT || 2000;
 const corsOptions = {
@@ -19,7 +21,7 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
 
 // Routing
@@ -30,6 +32,16 @@ app.get('/', (req, res) => {
   })
 });
 app.use('/v1', router);
+
+cron.schedule('* * * * *', async () => {
+  const send = await Reminder.sendBookingReminder();
+  send.map((s) => {
+    // send notifications
+    console.log(s.appointmentDate);
+  })
+  
+  console.log('running a task every minute');
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -33,8 +33,8 @@ export const sendVolunteerNotification = async (email, name, appointment) => {
     body: {
       name,
       title: `<h1 style="text-align: center; color: #000000"> ${projectName} </h1>`,
-      intro: `Hi <b>${name.toUpperCase()}</b>, This is to remind you that your appointment is scheduled on ${appointment}.`,
-      outro: 'Have a nice day'
+      intro: `Hi <b>${name}</b>, <br> We want to thank you for volunteering!`,
+      outro: 'Thank you and have a nice day!'
     }
   };
   // Generate an HTML email with the provided contents
@@ -42,7 +42,7 @@ export const sendVolunteerNotification = async (email, name, appointment) => {
 
   return await sendMail({
     to: email,
-    subject: `${projectName}: Appointment`,
+    subject: `${projectName}: About your Volunteer`,
     message
   });
 };
@@ -52,8 +52,8 @@ export const sendBookingAppointmentNotification = async (email, name, appointmen
     body: {
       name,
       title: `<h1 style="text-align: center; color: #000000"> ${projectName} </h1>`,
-      intro: `Hi <b>${name.toUpperCase()}</b>, This is to remind you that your appointment is scheduled on ${appointment}.`,
-      outro: 'Have a nice day'
+      intro: `Hi <b>${name}</b>, <br><br> This is to remind you that your appointment is scheduled on ${appointment}.`,
+      outro: 'Thank you and have a nice day!'
     }
   };
   // Generate an HTML email with the provided contents
@@ -61,7 +61,38 @@ export const sendBookingAppointmentNotification = async (email, name, appointmen
 
   return await sendMail({
     to: email,
-    subject: `${projectName}: Appointment`,
+    subject: `${projectName}: About your Appointment`,
     message
   });
 };
+
+export const sendNotificationToBoss = async (senderObject, bossObject) => {
+  const { email, name} = bossObject;
+  const { senderEmail, senderName, lastname, phone, appointmentDate, size, noOfAttachments, hairDoHours} = senderObject;
+  const emailBody = {
+    body: {
+      title: `<h1 style="text-align: center; color: #000000"> ${projectName} </h1>`,
+      intro: `Hi <b>${name}</b>, <br> This is to inform you that you have been booked and the details is as follows:
+        <p> 
+          <li>Name: ${firstname} ${lastname ? lastname: ''} </li>
+          ${phone ? `<li>Phone: ${phone} </li>` : ''}
+          ${senderEmail ? `<li>Email: ${senderEmail} </li>` : ''}
+          <li>Date of Appointment: ${appointmentDate}</li>
+          <li>Size: ${size}</li>
+          <li>No of Attachments: ${noOfAttachments}</li>
+          <li>Estimated hours of hairdo: ${hairDoHours}</li>
+        </p>
+      `,
+      outro: 'Thank you and have a nice day!'
+    }
+  }
+
+  // Generate an HTML email with the provided contents
+  const message = mailGenerator.generate(emailBody);
+
+  return await sendMail({
+    to: email,
+    subject: `${projectName}: About your Appointment`,
+    message
+  });
+}

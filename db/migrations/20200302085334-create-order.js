@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Appointments', {
+    return queryInterface.createTable('Orders', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,39 +9,23 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       firstname: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
       lastname: {
         type: Sequelize.STRING
       },
       email: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
       phone: {
         type: Sequelize.STRING
       },
-      appointmentDate: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: new Date()
-
-      },
-      service: {
+      amount: {
         type: Sequelize.STRING
       },
-      size: {
-        type: Sequelize.INTEGER
+      transactionReference: {
+        type: Sequelize.STRING
       },
-      noOfAttachments: {
-        type: Sequelize.INTEGER
-      },
-      hairDoHours: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
-      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -53,6 +37,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Appointments');
+    return queryInterface.dropTable('Orders');
   }
 };
