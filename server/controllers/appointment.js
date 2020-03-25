@@ -31,7 +31,7 @@ export default class AppointmentController {
 
   static async retrieveTimeSlots (req, res) {
     const { date } = req.body;
-    const timeslots = ['8:00am', '9:00am'];
+    const timeslots = ['8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00pm'];
     const endDate = moment(date).add(1, 'd');
     // Query appointment date 
     const data = await Appointment.findAll({
