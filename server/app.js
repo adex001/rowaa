@@ -33,15 +33,15 @@ app.get('/', (req, res) => {
 });
 app.use('/v1', router);
 
-// cron.schedule('* * * * * *', async () => {
-//   const send = await Reminder.sendBookingReminder();
-//   send.map((s) => {
-//     // send notifications
-//     console.log(s.appointmentDate);
-//   })
+cron.schedule('* * * * * *', async () => {
+  const send = await Reminder.sendBookingReminder();
+  send[0].map((s) => {
+    // send notifications
+    console.log(s);
+  })
   
-//   console.log('running a task every minute');
-// });
+  console.log('running a task every minute');
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
