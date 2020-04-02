@@ -8,9 +8,7 @@ class OrderController {
     try {
       // Verify the transaction Reference here
       const paystack = Paystack(process.env.PAYSTACK_SECRET_KEY);
-      const { transactionReference } = req.body;
-      console.log('transaction: reference.....>>' +transactionReference);
-      
+      const { transactionReference } = req.body;      
       paystack.transaction.verify(transactionReference, async function(err, body) {
         if (err) {
           return Response.error(res, 500, 'Payment cannot be verified')

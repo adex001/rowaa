@@ -5,6 +5,7 @@ import cron from 'node-cron';
 import router from './routes';
 import './config';
 import Reminder from './utilities/reminder';
+import { sendBookingAppointmentNotification } from './utilities/emailsender';
 
 const PORT = process.env.PORT || 2000;
 const corsOptions = {
@@ -33,11 +34,13 @@ app.get('/', (req, res) => {
 });
 app.use('/v1', router);
 
-cron.schedule('* * * * * *', async () => {
+/* The scheduler runs every 6:00 AM */
+
+cron.schedule('0 6 * * *', async () => {
   const send = await Reminder.sendBookingReminder();
   send[0].map((s) => {
     // send notifications
-    console.log(s);
+    sendBookingAppointmentNotification(s.email, `${s.firstname} ${s.lastname ? s.lastname : ''}`, s.appointmentDate)
   })
   
   console.log('running a task every minute');

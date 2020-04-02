@@ -28,7 +28,7 @@ export const sendMail = async ({ to, subject, message }) => {
   await sgMail.send(mailOptions);
 };
 
-export const sendVolunteerNotification = async (email, name, appointment) => {
+export const sendVolunteerNotification = async (email, name) => {
   const emailBody = {
     body: {
       name,
@@ -52,7 +52,7 @@ export const sendBookingAppointmentNotification = async (email, name, appointmen
     body: {
       name,
       title: `<h1 style="text-align: center; color: #000000"> ${projectName} </h1>`,
-      intro: `Hi <b>${name}</b>, <br><br> This is to remind you that your appointment is scheduled on ${appointment}.`,
+      intro: `Hi <b>${name}</b>, <br><br> This is to remind you that your appointment on Rowaa is scheduled on ${new Date(appointment).toLocaleString()}.`,
       outro: 'Thank you and have a nice day!'
     }
   };
@@ -77,7 +77,7 @@ export const sendNotificationToBoss = async (senderObject, bossObject) => {
           <li>Name: ${firstname} ${lastname ? lastname: ''} </li>
           ${phone ? `<li>Phone: ${phone} </li>` : ''}
           ${senderEmail ? `<li>Email: ${senderEmail} </li>` : ''}
-          <li>Date of Appointment: ${appointmentDate}</li>
+          <li>Date of Appointment: ${new Date(appointmentDate).toLocaleString()}</li>
           <li>Size: ${size}</li>
           <li>No of Attachments: ${noOfAttachments}</li>
           <li>Estimated hours of hairdo: ${hairDoHours}</li>
